@@ -5,11 +5,14 @@ const helmet = require("helmet");
 
 require("./modules/mongoose");
 
+const router = require("./routes/index");
+
 const app = express();
 
 app.use(cors());
 app.use(helmet());
 app.use(express.json());
+app.use(router);
 
 app.get("/is-up", (req, res) => {
   res.status(200).json({ ok: 1 });
