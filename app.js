@@ -4,17 +4,17 @@ const cors = require("cors");
 const helmet = require("helmet");
 
 
-// const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
-// const uri = ""
+const uri = process.env.MONGODB_URI || "mongodb://localhost:27017";
 
-// mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, err => {
-//   if (err) {
-//     console.error("mongoose connection error:", err);
-//     return;
-//   }
-//   console.log("mongoose connection is up.");
-// });
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, err => {
+  if (err) {
+    console.error("mongoose connection error:", err);
+    return;
+  }
+  console.log("mongoose connection is up.");
+});
 
 const app = express();
 
