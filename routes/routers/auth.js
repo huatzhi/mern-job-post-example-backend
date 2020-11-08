@@ -5,7 +5,6 @@ const AuthRouter = express.Router();
 
 // should change to post
 AuthRouter.post("/recruiter/register", async (req, res) => {
-  // todo :: add validations
   try {
     const { email = "", name = "", password = "" } = req.body;
     if (!Validator.isEmail(email) || Validator.isEmpty(name)) {
@@ -24,6 +23,25 @@ AuthRouter.post("/recruiter/register", async (req, res) => {
     console.error("/recruiter/register", err)
     res.status(err.code || 400).json({ message: err.message || err });
   }
-})
+});
+
+AuthRouter.post("/recruiter/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!Validator.isEmail(email) || Validator.isEmpty(password)) {
+      res.status(400).json({ message: "Invalid input." });
+      return;
+    }
+
+    const output = await dbRecruiter.login(email, password);
+    res.status(200).json(output);
+  } catch (err) {
+    console.error("/recruiter/login", err)
+    res.status(err.code || 400).json({ message: err.message || err });
+  }
+});
+
+
 
 module.exports = AuthRouter;

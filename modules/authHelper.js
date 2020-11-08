@@ -1,4 +1,5 @@
-const crypto = require("crypto")
+const crypto = require("crypto");
+const passport = require("passport");
 
 const authHelper = {
   hash: (password) => {
@@ -17,10 +18,13 @@ const authHelper = {
       const [salt, key] = hash.split(":")
       crypto.scrypt(password, salt, 64, (err, derivedKey) => {
         if (err) reject(err);
-        resolve(key == derivedKey.toString('hex'))
+        resolve(key === derivedKey.toString('hex'))
       });
     });
-  }
+  },
+
+  // middleware
+  authenticateRecruiter: passport.authenticate('jwt', { session: false }),
 }
 
 module.exports = authHelper;

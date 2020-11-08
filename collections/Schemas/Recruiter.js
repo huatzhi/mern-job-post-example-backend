@@ -11,7 +11,7 @@ const RecruiterSchema = new Schema({
     required: true,
     unique: true
   },
-  password: {
+  password: { // note that hashed password is saved. Please check with authHelper.js
     type: String,
     required: true
   },
