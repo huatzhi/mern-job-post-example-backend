@@ -32,4 +32,22 @@ JobRouter.post("/", async (req, res) => {
   }
 });
 
+JobRouter.post("/close", async (req, res) => {
+  try {
+    const { _id = "" } = req.user;
+    const { jobObjId = "" } = req.body;
+    if (!jobObjId) {
+      res.status(400).json({ message: "Invalid input" });
+      return;
+    }
+
+    await dbJob.close(_id, jobObjId);
+
+    res.sendStatus(204);
+  } catch (err) {
+    console.error("POST /job/close", err)
+    res.status(err.code || 400).json({ message: err.message || err });
+  }
+});
+
 module.exports = JobRouter;

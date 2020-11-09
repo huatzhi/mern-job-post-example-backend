@@ -13,6 +13,13 @@ const dbJob = {
 
   getRecruiterJobs: async recruiterObjId => await Job.find({ recruiter: recruiterObjId, statusOpen: true }).lean(),
 
+  close: async (recruiterObjId, jobObjId) => {
+    let output = await Job.updateOne({ _id: jobObjId, recruiter: recruiterObjId, statusOpen: true }, { statusOpen: false });
+    if (!output || !output.nModified) {
+      return Promise.reject({ status: 400, message: "Job not found." });
+    }
+  },
+
 }
 
 module.exports = dbJob;
