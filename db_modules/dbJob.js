@@ -1,9 +1,9 @@
 const { Job } = require("../collections/collections");
 
 const dbJob = {
-  create: async (recruiterObjId, title, location, description) => {
+  create: async (recruiterObjId, recruiterName, title, location, description) => {
     try {
-      const job = new Job({ recruiter: recruiterObjId, title, location, description });
+      const job = new Job({ recruiter: recruiterObjId, recruiterName, title, location, description });
       await job.save();
     } catch (err) {
       console.error("Job create error", err);

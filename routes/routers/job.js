@@ -15,7 +15,7 @@ JobRouter.use((req, res, next) => {
 
 JobRouter.post("/", async (req, res) => {
   try {
-    const { _id = "" } = req.user;
+    const { _id = "", name = "" } = req.user;
 
     const { title = "", location = "", description = "" } = req.body;
 
@@ -23,7 +23,7 @@ JobRouter.post("/", async (req, res) => {
       res.status(400).json({ message: "Invalid input" });
     }
 
-    await dbJob.create(_id, title, location, description);
+    await dbJob.create(_id, name, title, location, description);
 
     res.status(201).json({ ok: 1 });
   } catch (err) {
