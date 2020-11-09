@@ -15,6 +15,9 @@ const JobSchema = new Schema({
   timestamps: true
 });
 
+JobSchema.index({ statusOpen: 1, recruiter: 1, createdAt: -1 });
+JobSchema.index({ statusOpen: 1, createdAt: -1 });
+
 Job = mongoose.model("jobs", JobSchema);
 
 module.exports = Job;
