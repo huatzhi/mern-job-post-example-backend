@@ -1,6 +1,8 @@
 const { Job } = require("../collections/collections");
 
 const dbJob = {
+  get: async () => await Job.find({ statusOpen: true }).sort({ createdAt: -1 }).lean(),
+
   create: async (recruiterObjId, recruiterName, title, location, description) => {
     try {
       const job = new Job({ recruiter: recruiterObjId, recruiterName, title, location, description });
@@ -11,7 +13,7 @@ const dbJob = {
     }
   },
 
-  getRecruiterJobs: async recruiterObjId => await Job.find({ recruiter: recruiterObjId, statusOpen: true }).lean(),
+  getRecruiterJobs: async recruiterObjId => await Job.find({ recruiter: recruiterObjId, statusOpen: true }).sort({ createdAt: -1 }).lean(),
 
   close: async (recruiterObjId, jobObjId) => {
     let output = await Job.updateOne({ _id: jobObjId, recruiter: recruiterObjId, statusOpen: true }, { statusOpen: false });

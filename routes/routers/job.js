@@ -3,6 +3,16 @@ const JobRouter = express.Router();
 const { authenticateRecruiter } = require("../../modules/authHelper");
 const dbJob = require("../../db_modules/dbJob");
 
+JobRouter.get("/", async (req, res) => {
+  try {
+    const jobs = await dbJob.get();
+    res.status(200).json(jobs);
+  } catch (err) {
+    console.error("GET /job/", err)
+    res.status(err.code || 400).json({ message: err.message || err });
+  }
+});
+
 JobRouter.use(authenticateRecruiter);
 
 JobRouter.use((req, res, next) => {
