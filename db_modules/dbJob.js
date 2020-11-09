@@ -11,6 +11,8 @@ const dbJob = {
     }
   },
 
+  getRecruiterJobs: async recruiterObjId => await Job.find({ recruiter: recruiterObjId, statusOpen: true }).lean(),
+
 }
 
 module.exports = dbJob;

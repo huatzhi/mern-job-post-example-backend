@@ -1,8 +1,5 @@
 const express = require("express");
-const { default: validator } = require("validator");
-const Validator = require("validator");
 const JobRouter = express.Router();
-const passport = require('passport');
 const { authenticateRecruiter } = require("../../modules/authHelper");
 const dbJob = require("../../db_modules/dbJob");
 
