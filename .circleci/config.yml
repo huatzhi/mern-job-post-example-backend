@@ -1,0 +1,11 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:15.1
+    steps:
+      - checkout
+      - run: echo "npm installing"
+      - run: npm i
+      - run: echo "npm run test"
+      - run: npm run test
