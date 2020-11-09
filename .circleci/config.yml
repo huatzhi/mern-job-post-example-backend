@@ -1,11 +1,7 @@
-version: 2
-jobs:
-  build:
-    docker:
-      - image: circleci/node:15.1
-    steps:
-      - checkout
-      - run: echo "npm installing"
-      - run: npm i
-      - run: echo "npm run test"
-      - run: npm run test
+version: 2.1
+orbs:
+  node: circleci/node@15.1
+workflows:
+  node-tests:
+    jobs:
+      - node/test
