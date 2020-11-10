@@ -1,7 +1,24 @@
 version: 2.1
 orbs:
   node: circleci/node@3.0.0
+jobs:
+  deploy-to-vultr:
+    docker:
+      - image: circleci/node:15.1
+    steps:
+      - run:
+          name: Fix ssh Could not resolve hostname
+          command: |
+            ssh-keyscan 45.32.102.151 >> ~/.ssh/known_hosts
+      - add_ssh_keys:
+          fingerprints:
+            - '7c:3e:38:77:58:00:50:0f:95:f8:97:17:66:86:0f:e3'
+      - run:
+          name: Deploy Over SSH
+          command: |
+            ssh root@45.32.102.151 'sh deploy-backend.sh'
 workflows:
   node-tests:
     jobs:
       - node/test
+      - deploy-to-vultr
