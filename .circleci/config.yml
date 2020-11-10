@@ -6,6 +6,7 @@ jobs:
     docker:
       - image: circleci/node:15.1
     steps:
+      - run: mkdir -p ~/.ssh
       - run:
           name: Fix ssh Could not resolve hostname
           command: |
